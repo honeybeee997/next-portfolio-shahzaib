@@ -1,7 +1,6 @@
 import ConnectDB from "@/app/db/Connect";
 import User from "@/app/models/User";
 import NextAuth from "next-auth/next";
-
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 
@@ -16,19 +15,18 @@ const handler = NextAuth({
           await ConnectDB();
           const user = await User.findOne({ email: credentials.email });
 
-          const passwardOk =
-            user && bcrypt.compare(credentials.password, user.password);
-
-          if (passwardOk) {
+          if (
+            user &&
+            (await bcrypt.compare(credentials.password, user.password))
+          ) {
             return {
               email: user.email,
-              username: user.username, // Include username in the return object
+              username: user.username,
             };
           }
-
           return null;
         } catch (err) {
-          throw new Error("credentials  error");
+          throw new Error("credentials error");
         }
       },
     }),

@@ -9,6 +9,12 @@ const nextConfig = {
       },
     ],
   },
+  env: {
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    MONGO_URL: process.env.MONGO_URL,
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+  },
 };
 
 export default nextConfig;
