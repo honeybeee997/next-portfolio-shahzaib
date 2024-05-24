@@ -1,15 +1,10 @@
 "use client";
 import Button from "../button/Button";
-import { FaGithub } from "react-icons/fa";
-import { FaLinkedinIn } from "react-icons/fa";
-import { FaFacebook } from "react-icons/fa";
-import { GrInstagram } from "react-icons/gr";
+
 import { motion } from "framer-motion";
 
 import {
-  containerVariants,
   containerVariantsView,
-  desVariants,
   tittleVariants,
 } from "@/app/(services)/animation/animation";
 import { Socialicons } from "@/app/constants";
@@ -25,7 +20,7 @@ const Footer = () => {
           variants={tittleVariants}
           className="text-2xl font-bold max-w-[400px] text-black mx-auto max-container"
         >
-          Prepared to turn your ideas into reality? I'm here to help.
+          Prepared to turn your ideas into reality? I&apos;m here to help.
         </motion.h1>
         <Button label="Contact Me" bg="orange" link="#contact"></Button>
       </div>

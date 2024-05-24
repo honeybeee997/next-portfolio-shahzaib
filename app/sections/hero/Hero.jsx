@@ -1,6 +1,4 @@
 "use client";
-
-import { useEffect, useRef, useState } from "react";
 import { IoIosSend } from "react-icons/io";
 import { IoDownloadOutline } from "react-icons/io5";
 import { motion } from "framer-motion";
@@ -16,39 +14,10 @@ import {
   tittleVariants,
 } from "@/app/(services)/animation/animation";
 
-let html2pdf;
-if (typeof window !== "undefined") {
-  html2pdf = require("html2pdf.js");
-}
-
 const Hero = ({ heroData }) => {
   const { name, animatedText, description, subHeading, image, cv } =
     heroData[0];
   const animate = animatedText.split(",");
-  const hiddenContainerRef = useRef(null);
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
-
-  const downloadCV = () => {
-    if (!html2pdf) {
-      console.error("html2pdf is not available");
-      return;
-    }
-
-    const container = hiddenContainerRef.current;
-
-    if (container) {
-      html2pdf()
-        .from(container)
-        .set({
-          margin: 1,
-          filename: "cv.pdf",
-          image: { type: "jpeg", quality: 0.98 },
-          html2canvas: { scale: 2 },
-          jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
-        })
-        .save();
-    }
-  };
 
   return (
     <section
@@ -75,7 +44,7 @@ const Hero = ({ heroData }) => {
             variants={tittleVariants}
             className="max-sm:text-[65px] mb-0  mt-1 font-bold flex-wrap text-black max-sm:leading-[72px] text-[54px]  "
           >
-            Hi, I'm <span className="text-orange capitalize">{name} </span>
+            Hi, I&apos;m <span className="text-orange capitalize">{name}</span>
           </motion.h1>
           <motion.h3
             initial="offscreen"
@@ -112,13 +81,7 @@ const Hero = ({ heroData }) => {
               icon={<IoIosSend />}
               link="#contact"
             />
-            {cv && (
-              <Button
-                label="Download Cv"
-                onClick={downloadCV}
-                icon={<IoDownloadOutline />}
-              />
-            )}
+            {cv && <Button label="Download Cv" icon={<IoDownloadOutline />} />}
           </motion.div>
           <div className=" mt-5 sm:mt-8">
             <Social_icons></Social_icons>
@@ -144,11 +107,6 @@ const Hero = ({ heroData }) => {
       </div>
       <div className="hidden md:flex absolute left-2/4 bottom-[-30px] animate-bounce">
         <IoIosArrowDown className="text-2xl text-orange"></IoIosArrowDown>
-      </div>
-
-      {/* Hidden container for PDF generation */}
-      <div ref={hiddenContainerRef} style={{ display: "none" }}>
-        <img src={cv} alt="CV" onLoad={() => setIsImageLoaded(true)} />
       </div>
     </section>
   );

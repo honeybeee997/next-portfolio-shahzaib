@@ -1,7 +1,6 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const APIurl = process.env.API_URL;
 export async function addData(currentTab, formData) {
   try {
     const { data } = await axios.post(

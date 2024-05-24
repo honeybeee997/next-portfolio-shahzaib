@@ -27,8 +27,6 @@ const Page = ({ params }) => {
   const id = params.id;
   const router = useRouter();
 
-  console.log(formData, "single about data updated 1122");
-
   const formValidate = () => {
     return formData.data.every(
       (item) => item.designation && item.institute && item.years
@@ -65,19 +63,6 @@ const Page = ({ params }) => {
     });
   };
 
-  const extractData = async () => {
-    try {
-      setPageLoading(true);
-      const data = await getSingleData("about", id);
-      setUpdate(true);
-      setFormdata(data.data);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setPageLoading(false);
-    }
-  };
-
   const saveData = async () => {
     try {
       if (!formValidate()) {
@@ -98,8 +83,23 @@ const Page = ({ params }) => {
   };
 
   useEffect(() => {
-    extractData();
-  }, []);
+    const extractData = async () => {
+      try {
+        setPageLoading(true);
+        const data = await getSingleData("about", id);
+        setUpdate(true);
+        setFormdata(data.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setPageLoading(false);
+      }
+    };
+
+    extractData(); // Call extractData directly inside useEffect
+
+    // Add extractData to the dependency array
+  }, [id]);
 
   return (
     <div className="padding max-md:mt-16 flex flex-col gap-4 w-full">

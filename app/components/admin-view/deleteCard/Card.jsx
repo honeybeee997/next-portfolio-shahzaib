@@ -34,7 +34,8 @@ const DeleteCard = ({
         <div className="flex justify-center items-center flex-col  h-full w-full">
           <p className="text-lg  text-center">
             Are you sure you want to delete this{" "}
-            <span className="font-bold">"{deletedName}" </span> {category}
+            <span className="font-bold">&quot;{deletedName}&quot;</span>{" "}
+            {category}
           </p>
           <div className="mt-4 flex justify-center">
             <button

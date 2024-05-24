@@ -28,7 +28,7 @@ const serviceFormData = {
   ],
 };
 
-const page = ({ params }) => {
+const Page = ({ params }) => {
   const [formData, setFormdata] = useState(serviceFormData);
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(true);
@@ -78,17 +78,7 @@ const page = ({ params }) => {
       toast.error("Failed to upload image");
     }
   };
-  const extractData = async () => {
-    try {
-      setPageLoading(true);
-      const data = await getSingleData("services", id);
-      setFormdata(data?.data);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setPageLoading(false);
-    }
-  };
+
   const formValidate = () => {
     return formData.data.every((item) => item.points);
   };
@@ -145,8 +135,24 @@ const page = ({ params }) => {
   };
 
   useEffect(() => {
-    extractData();
-  }, []);
+    const extractData = async () => {
+      try {
+        setPageLoading(true);
+        const data = await getSingleData("services", id);
+        setUpdate(true);
+        setFormdata(data.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setPageLoading(false);
+      }
+    };
+
+    extractData(); // Call extractData directly inside useEffect
+
+    // Add extractData to the dependency array
+  }, [id]);
+
   return (
     <div className="padding max-md:mt-16  w-full">
       {pageLoading ? (
@@ -263,4 +269,4 @@ const page = ({ params }) => {
   );
 };
 
-export default page;
+export default Page;

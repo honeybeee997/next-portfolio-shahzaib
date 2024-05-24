@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import { IoPersonOutline } from "react-icons/io5";
 import { FaBriefcase } from "react-icons/fa";
 import { FaUserGraduate } from "react-icons/fa6";
 import { Cake, MailOpen, MapPin, PhoneCall, User } from "lucide-react";
